@@ -7,6 +7,7 @@ public enum Language {
     FR("fr"),
     DE("de"),
     PT("pt"),
+    RU("ru"),
     ZH("zh");
 
     private String languagesCode;

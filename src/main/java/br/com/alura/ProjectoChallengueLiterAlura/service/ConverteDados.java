@@ -12,8 +12,8 @@ public class ConverteDados implements IConverteDados {
             return mapper.readValue(json, classe);
         } catch (JsonProcessingException e) {
             System.out.println(" Error al convertir JSON:");
-            System.out.println(json); // Muestra el JSON recibido
-            e.printStackTrace(); // Muestra el error exacto
+            System.out.println(json);
+            e.printStackTrace();
             throw new RuntimeException("Error al deserializar JSON: " + e.getMessage(), e);
         }
     }
