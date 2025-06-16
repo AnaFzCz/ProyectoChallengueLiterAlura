@@ -24,8 +24,13 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
     @Query(value = "SELECT  a.nome_autor, a.birth_year, a.death_year, STRING_AGG(l.titulo, ', ') AS titulos FROM autores a INNER JOIN livros l ON a.livro_id = l.id WHERE  a.birth_year<= :anoPesquisar AND (a.death_year IS NULL OR a.death_year>= :anoPesquisar) GROUP BY a.nome_autor, a.birth_year, a.death_year", nativeQuery = true)
     List<AutorResumenDTO> autoresVivosDeterminadoAno(@Param("anoPesquisar") int anoPesquisar);
 
-    //SELECT * FROM livros  WHERE language= 'EN'
-
 
     List<Livro> findByLanguage(Language language);
+
+    List<Livro> findTop5ByOrderByDownloadCountDesc();
+
+    @Query(value = "SELECT a.nome_autor, a.birth_year ,a.death_year, STRING_AGG(l.titulo, ', ') AS titulos FROM autores a INNER JOIN livros l ON a.livro_id = l.id WHERE LOWER(a.nome_autor) LIKE LOWER(CONCAT('%',:nomeAutorBuscado, '%')) GROUP BY a.nome_autor, a.birth_year, a.death_year", nativeQuery = true)
+    List<AutorResumenDTO> buscaNomeAutor(@Param("nomeAutorBuscado") String nomeAutorBuscado);
+
+
 }

@@ -12,16 +12,17 @@ public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 500)
     private String titulo;
     @Enumerated(EnumType.STRING)
     private Language language;
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Autor> autorList = new ArrayList<>();
-    //    @Lob
-    @Column(length = 2000)
+
+    @Column(length = 3000)
     private List<String> resumen = new ArrayList<>();
-    private Integer download_count;
+    @Column(name = "download_count")
+    private Integer downloadCount;
+    private List<String> categoria;
 
     public Livro() {
     }
@@ -45,8 +46,6 @@ public class Livro {
             autor.setLivro(this);
             this.autorList.add(autor);
         }
-        this.resumen = dadosLivro.resumen();
-        this.download_count = dadosLivro.download_count();
     }
 
     public String getTitulo() {
@@ -59,6 +58,10 @@ public class Livro {
 
     public Language getLanguage() {
         return language;
+    }
+
+    public void setLanguageL(Language languageL) {
+        this.language = languageL;
     }
 
     public List<Autor> getAutorList() {
@@ -81,12 +84,20 @@ public class Livro {
         this.resumen = resumen;
     }
 
-    public Integer getDownload_count() {
-        return download_count;
+    public Integer getDownloadCount() {
+        return downloadCount;
     }
 
-    public void setDownload_count(Integer download_count) {
-        this.download_count = download_count;
+    public void setDownloadCount(Integer downloadCount) {
+        this.downloadCount = downloadCount;
+    }
+
+    public List<String> getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(List<String> categoria) {
+        this.categoria = categoria;
     }
 
     @Override
@@ -96,6 +107,6 @@ public class Livro {
                 ", language=" + language +
                 ", autorList=" + autorList +
                 ", resumen=" + resumen +
-                ", download_count=" + download_count;
+                ", downloadCount=" + downloadCount;
     }
 }

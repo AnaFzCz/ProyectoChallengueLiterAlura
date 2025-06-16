@@ -45,6 +45,8 @@ public class Principal {
                     3- Listar autores registrados
                     4- Listar autores vivos em um determinado ano
                     5- Listar livros em um determinado idioma
+                    6- Top 5 mais baixados
+                    7- Buscar autor pelo nome
                     
                     0- Salir
                     
@@ -73,8 +75,7 @@ public class Principal {
                     break;
                 case 7:
                     BuscarAutorPorNome();
-                case 8:
-                    BuscarPorCategoria();
+                    break;
                 case 0:
                     System.out.println("Saindo do Menu.....");
                     break;
@@ -88,15 +89,6 @@ public class Principal {
 
     }
 
-    private void Top10descargados() {
-
-    }
-
-    private void BuscarAutorPorNome() {
-    }
-
-    private void BuscarPorCategoria() {
-    }
 
     private DadosLivro getDadosLivro() {
         System.out.println("Digite o título do livro");
@@ -120,7 +112,7 @@ public class Principal {
 
         livros = repositorio.findAll();
         System.out.println("\nLISTA DE LIBROS REGISTRADOS\n");
-        livros.forEach(l -> System.out.printf("\n******************************** \nLibro: %s \nIdioma: %s \nResumen:%s \nN° descargas: %d\n", l.getTitulo(), l.getLanguage(), l.getResumen(), l.getDownload_count()));
+        livros.forEach(l -> System.out.printf("\n******************************** \nLibro: %s \nIdioma: %s \nResumen:%s \nN° descargas: %d\nCategoria: %s\n", l.getTitulo(), l.getLanguage(), l.getResumen(), l.getDownloadCount(), l.getCategoria()));
 
     }
 
@@ -159,7 +151,25 @@ public class Principal {
         Language language = Language.fromString(idiomaElegido);
         System.out.println("LISTA DE LIVROS ESCRITO EM " + idiomaElegido);
         List<Livro> listaIdioma = repositorio.findByLanguage(language);
-        listaIdioma.forEach(l -> System.out.printf("\n******************************** \nLibro: %s \nIdioma: %s \nResumen:%s \nN° descargas: %d\n", l.getTitulo(), l.getLanguage(), l.getResumen(), l.getDownload_count()));
+        listaIdioma.forEach(l -> System.out.printf("\n******************************** \nLibro: %s \nIdioma: %s \nResumen:%s \nN° descargas: %d\n", l.getTitulo(), l.getLanguage(), l.getResumen(), l.getDownloadCount()));
 
     }
+
+    private void Top10descargados() {
+
+        livros = repositorio.findTop5ByOrderByDownloadCountDesc();
+        System.out.println("\nTOP 10 MAIS BAIXADOS\n");
+        livros.forEach(l -> System.out.printf("\n******************************** \nLibro: %s \nIdioma: %s \nResumen:%s \nN° descargas: %d\n", l.getTitulo(), l.getLanguage(), l.getResumen(), l.getDownloadCount()));
+    }
+
+    private void BuscarAutorPorNome() {
+
+        System.out.println("Qual es el nome do Autor?");
+        var nomeAutorBuscado = scanner.nextLine();
+        List<AutorResumenDTO> buscaAutor = repositorio.buscaNomeAutor(nomeAutorBuscado);
+        System.out.println("\nAUTOR E LIVROS\n");
+        buscaAutor.forEach(a -> System.out.printf("\n********************************** \nAutor: %s \nAno de nascimento: %d \nAno de falecimento: %d \nLibro: %s\n", a.name(), a.birthYear(), a.deathYear(), a.titulos()));
+    }
+
+
 }

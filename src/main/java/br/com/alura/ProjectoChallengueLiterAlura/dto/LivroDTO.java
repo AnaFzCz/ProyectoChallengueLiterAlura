@@ -12,6 +12,6 @@ public record LivroDTO(
         @JsonAlias("title") String titulo,
         @JsonAlias("languages") List<String> language,
         @JsonAlias("summaries") List<String> resumen,
-        @JsonAlias("download_count") Integer download_count
-) {
+        @JsonAlias("download_count") Integer downloadCount,
+        @JsonAlias("subjects") List<String> categoria) {
 }
