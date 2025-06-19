@@ -42,7 +42,7 @@ Contiene un menú con 7 opciones para que el usuario pueda interactuar con la ap
 
 `Funcionalidad 1`: La primera opción, "Buscar un libro por título", es la que permite realizar la consulta directamente en la API y luego insertar el libro en la base de datos. Esta es la única opción donde se utilizará la API directamente. Para las demás opciones, solo se utilizará la base de datos.
 
-![literalura1 Menu](https://github.com/user-attachments/assets/a7e19f3b-fb8a-4170-8265-c3a922d5b815)
+![literalura1 Menu](https://github.com/user-attachments/assets/99dd3989-7b3d-4303-a176-780b9be7dace)
 
 `Funcionalidad 2`: Opción 2, lista todos los libros registrados en la Base de Datos.
 
